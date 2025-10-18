@@ -9,14 +9,45 @@ void displayMenu(){
   std::cout << "4) Exit" << "\n";
 }
 
+void addPatient(){
+  std::cout << "adding patient" <<"\n"; 
+
+}
+
+void printAllPatients(){
+  std::cout << "printing all patients" << "\n";
+
+}
+
+void getNextPatient(){
+  std::cout << "getting next patient" << "\n";
+
+}
+
 
 
 int main() {
 
-  while(1){
+  bool exitProgram = true;
+  while(exitProgram){
   displayMenu();
   int choice;
   std::cin >> choice;
+
+  switch(choice){
+    case 1:
+      addPatient();
+      break;
+    case 2:
+      printAllPatients();
+      break;
+    case 3:
+      getNextPatient();
+      break;
+    default:
+      exitProgram = false;
+      break;
+  }
   }
 
   return 0;
