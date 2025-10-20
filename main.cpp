@@ -44,7 +44,6 @@ void addPatient(){
   int status{};
   std::string name{};
   std::cin >> specialization >> name >> status;
-  std::cout << specialization << " " << name << " " << status << "\n";
   int start = 0;
   int end = queueSize - 1;
   if(checkIfQueueFull(specialization)){
@@ -83,8 +82,35 @@ void addPatient(){
 
 }
 
+int numberOfPatientsInSpecialization(int specialization){
+  int numberOfPatients = 0;
+  for(int i = 0; i < queueSize; i++){
+    if(hospitalQueue[specialization][i] != 3){
+        numberOfPatients++;
+    }
+  }
+  
+  return numberOfPatients;
+}
+
 void printAllPatients(){
-  std::cout << "printing all patients" << "\n";
+  std::cout << "********************************************************************" << "\n";
+  for(int i = 0; i < specializations; i++){
+    if(numberOfPatientsInSpecialization(i) > 0){
+      std::cout << "There are " << numberOfPatientsInSpecialization(i) << " patients in specialization " << i << "\n";
+    }
+    for(int j = 0; j < queueSize; j++){
+      std::cout << namesOfPatient[i][j];
+      if(hospitalQueue[i][j] == 1){
+        std::cout << " Urgent" << "\n";
+        
+      }
+      else if(hospitalQueue[i][j] == 0){
+        std::cout << " Regular" << "\n";
+      }
+    }
+  }
+  std::cout << "\n";
 
 }
 
