@@ -38,6 +38,64 @@ void initializeHospitalSystem() {
   }
 }
 
+
+void addPatient() {
+  std::cout << "Enter Specialization, name, status: " <<"\n"; 
+  int specialization{};
+  int status{};
+  std::string name{};
+  std::cin >> specialization >> name >> status;
+  if(checkIfQueueFull(specialization)){
+    std::cout << "Sorry the queue is full right now. Not accepting new patients" << "\n";
+    return;
+  }
+
+  if(hospitalQueue[specialization][0] == 3){
+    hospitalQueue[specialization][0] = status;
+    namesOfPatient[specialization][0] = name;
+  }
+  else{
+    for(int i = 0; i < queueSize; i++){
+      if(hospitalQueue[specialization][i] == 3){
+         hospitalQueue[specialization][i] = status;
+         namesOfPatient[specialization][i] = name;
+         break;
+      }
+      if(hospitalQueue[specialization][i] == 1 && status == 1 || hospitalQueue[specialization][0] == 0 && status == 1){
+        for(int j = 3; j >= 0; j--){
+          hospitalQueue[specialization][j + 1] = hospitalQueue[specialization][j]; 
+          namesOfPatient[specialization][j + 1] = namesOfPatient[specialization][j];
+        }
+          hospitalQueue[specialization][0] = status;
+          namesOfPatient[specialization][0] = name;
+          break;
+      }
+      if(hospitalQueue[specialization][i] == 0 && hospitalQueue[specialization][i + 1] != 0){
+          hospitalQueue[specialization][i + 1] = status;
+          namesOfPatient[specialization][i + 1] = name;
+          break;
+      }
+
+    }
+  }
+
+
+  
+  
+  
+
+ 
+
+
+  
+
+
+  
+}
+
+
+
+ #if 0 
 void addPatient(){
   std::cout << "Enter Specialization, name, status: " <<"\n"; 
   int specialization{};
@@ -81,6 +139,7 @@ void addPatient(){
 
 
 }
+#endif 
 
 int numberOfPatientsInSpecialization(int specialization){
   int numberOfPatients = 0;
@@ -123,9 +182,9 @@ void getNextPatient(){
 void printCurrentQueue() {
   for(int i = 0; i < 5; i++){
     std::cout << hospitalQueue[0][i] << " ";
-    std::cout << namesOfPatient[0][i] << " " << "\n";
+    //std::cout << namesOfPatient[0][i] << " " << "\n";
   }
-  std::cout << "\n";
+  //std::cout << "\n";
 }
 
 
