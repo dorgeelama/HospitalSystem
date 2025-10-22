@@ -13,7 +13,6 @@ void displayMenu(){
   std::cout << "2) Print all patient" << "\n";
   std::cout << "3) Get next patients" << "\n";
   std::cout << "4) Exit" << "\n";
-  std::cout << "5) Print current queue" << "\n";
 }
 
 bool checkIfQueueFull(int specialization){
@@ -37,6 +36,9 @@ void initializeHospitalSystem() {
     }
   }
 }
+
+
+
 
 
 void addPatient() {
@@ -174,18 +176,24 @@ void printAllPatients(){
 }
 
 void getNextPatient(){
-  std::cout << "getting next patient" << "\n";
+ int specialization;
+ std::cout << "Enter specialization: " << "\n";
+ std::cin >> specialization;
+ if(hospitalQueue[specialization][0] == 3){
+   std::cout << "No patients at the moment. Have rest, Doctor" << "\n";
+ }
+ else{
+ std::cout << namesOfPatient[specialization][0] << " please go with the Doctor" << "\n";
+ for(int i = 1; i < queueSize; i++){
+   hospitalQueue[specialization][i - 1] = hospitalQueue[specialization][i];
+   namesOfPatient[specialization][i - 1] = namesOfPatient[specialization][i];
+ }
+   hospitalQueue[specialization][queueSize - 1] = 3;
+   namesOfPatient[specialization][queueSize - 1] = 3;
 
+ }
 }
 
-// This function is only for debugging purposes 
-void printCurrentQueue() {
-  for(int i = 0; i < 5; i++){
-    std::cout << hospitalQueue[0][i] << " ";
-    //std::cout << namesOfPatient[0][i] << " " << "\n";
-  }
-  //std::cout << "\n";
-}
 
 
 
@@ -207,9 +215,6 @@ int main() {
       break;
     case 3:
       getNextPatient();
-      break;
-    case 5:
-      printCurrentQueue();
       break;
     default:
       exitProgram = false;
